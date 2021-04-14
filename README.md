@@ -1,6 +1,6 @@
 # Spur_gear_application
 
-This is a C++ console application developed in Visual studio 2019 which automates the design procedure for designing a pair of spur gears. 
+This is a C++ console application developed in Visual studio 2019 which automates the design procedure for a pair of spur gear. 
 This is an initial version of the application and it is only integrated with 4 materials and is not well optimised. Also a proper UI has not yet been devolped. 
 The prerequisite needed for execution are -
 
