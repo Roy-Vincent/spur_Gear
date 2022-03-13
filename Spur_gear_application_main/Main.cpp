@@ -2,14 +2,9 @@
 #include<cmath>
 #include<stdlib.h>
 #include "Header.h"
-float power, vel_ratio;
-float module;
-float tangential_tooth_load;
-float velocity_factor, torque;
+float power, vel_ratio, module, tangential_tooth_load, velocity_factor, torque,
+	endurance_strength,dynamic_load, wear_load;
 int choice_gear_system;
-float endurance_strength;
-float dynamic_load;
-float wear_load;
 int main()
 {	
 	gear GEAR;
@@ -221,5 +216,5 @@ int main()
 		GEAR.print_gear_data();
 	}
 
-std::cin.get();
+	system("pause>0");
 }

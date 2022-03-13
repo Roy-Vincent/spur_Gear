@@ -2,7 +2,7 @@
 #include<iomanip>
 #include<stdlib.h>
 #include "Header.h"
-void gear_properties(gear& gear1)
+void gear_properties(gear& gear1) 
 {
 	int choice;
 	std::cout << "Cast steel, 0.2 %C, heat treated   : choice 1" << std::endl;

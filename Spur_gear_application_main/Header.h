@@ -13,25 +13,14 @@ extern float velocity_factor, torque;
 
 extern float angle;
 
-class gear							// gear class to create GEAR and PINION
+struct gear							// gear class to create GEAR and PINION
 {
-public:
-	int module;
-	int no_of_teeth;
-	int speed_in_rpm;
-	int brinell_hardness_no;
-	float velocity;
-	float diameter;
-	float lewis_form_factor;
-	float form_factor;
-	float design_stress;
-	float endurance_strength;
+	int module, no_of_teeth, speed_in_rpm, brinell_hardness_no;
+	float velocity, diameter, lewis_form_factor, form_factor, design_stress, endurance_strength;
 	double youngs_modulus;
-	std::string material;
-	std::string gear_type;
+	std::string material, gear_type;
 
-	gear()
-	{
+	gear(){
 		module = 0;
 		no_of_teeth = 0;
 		brinell_hardness_no = 0;
