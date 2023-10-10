@@ -1,5 +1,7 @@
 #!/bin/bash
 
+mkdir ./bin
+
 g++ -o bin/Gear lib/Header.h lib/Actual_dimensions.cpp lib/Diameter_teeth.cpp lib/Dynamic_load.cpp lib/Endurance_strength.cpp \
 	lib/Gear_properties.cpp lib/Identification_of_weaker_part.cpp lib/Module.cpp lib/Wear_load.cpp lib/Get_functions.cpp \
 	Main.cpp
