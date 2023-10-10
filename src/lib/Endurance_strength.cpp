@@ -1,4 +1,5 @@
 #include<iostream>
+
 #include "Header.h"
 
 float endurance_strength_func(gear weaker_gear)

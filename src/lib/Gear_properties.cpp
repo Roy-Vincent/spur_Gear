@@ -1,6 +1,7 @@
 #include<iostream>
 #include<iomanip>
 #include<stdlib.h>
+
 #include "Header.h"
 void gear_properties(gear& gear1) 
 {

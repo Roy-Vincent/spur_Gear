@@ -1,89 +1,22 @@
 #include<iostream>
 #include<cmath>
 #include<stdlib.h>
-#include "Header.h"
-float power, vel_ratio, module, tangential_tooth_load, velocity_factor, torque,
-	endurance_strength,dynamic_load, wear_load;
+#include "lib/Header.h"
+float power, vel_ratio, module, tangential_tooth_load, velocity_factor, torque, endurance_strength,dynamic_load, wear_load;
 int choice_gear_system;
+
 int main()
 {	
-	gear GEAR;
-	gear PINION;
-	std::cout << "-------------------------------------------------" << std::endl;
-	std::cout << "ENTER YOUR CHOICE FOR GEAR MATERIAL" << std::endl;
-	std::cout << "-------------------------------------------------" << std::endl;
-	gear_properties(GEAR);
-	GEAR.gear_type = "GEAR";
-
-	std::cout << "-------------------------------------------------" << std::endl;
-	std::cout << "ENTER YOUR CHOICE FOR PINION MATERIAL" << std::endl;
-	std::cout << "-------------------------------------------------" << std::endl;
-	gear_properties(PINION);
-	PINION.gear_type = "PINION";
-	std::cout << std::endl << std::endl;
+	gear GEAR, PINION;
+	get_gear_material(GEAR,"GEAR");
 	
-	std::cout << "-------------------------------------------------" << std::endl;
-	std::cout << "ENTER THE FOLLOWING DATA" << std::endl;
-	std::cout << "-------------------------------------------------" << std::endl;
-	std::cout << "Enter the power in Kw              :" << ' ';
-	std::cin >> power;									//Power
-	std::cout << "enter the velocity ratio           :" << ' ';
-	std::cin >> vel_ratio;								//Velocity ratio
-	std::cout << std::endl << std::endl;
+	get_gear_material(PINION, "PINION");
+	
+	get_power_and_vel_ratio();
 
+	get_dia_gear_or_pinion(GEAR, PINION);
 
-//Diameter of gear and pinion
-	std::cout << "Diameter of either gear or pinion is nessesery...!" << std::endl << std::endl;
-	int choice_dia;
-	std::cout << "Enter choice 1 to enter gear dia   :" << std::endl;
-	std::cout << "Enter choice 2 to enter pinion dia : " << std::endl;
-	std::cin >> choice_dia;
-	if (choice_dia == 1 || choice_dia == 2)
-	{
-		if (choice_dia == 1) {
-			Dia_teeth(GEAR);
-			PINION.diameter = std::ceil(GEAR.diameter / vel_ratio);
-		}
-		else {
-			Dia_teeth(PINION);
-			GEAR.diameter = std::ceil(PINION.diameter * vel_ratio);
-		}
-	}
-	else
-	{	
-		std::cout << "WRONG INPUT...!";
-		exit(0);		
-	}
-	std::cout << std::endl << std::endl;
-
-
-//Speed of gear and pinion
-	std::cout << "Speed of either gear or pinion is nessesery...!" << std::endl << std::endl;
-	int choice_speed;
-	std::cout << "Enter choice 1 to enter speed of gear   :" << std::endl;
-	std::cout << "Enter choice 2 to enter speed of pinion :" << std::endl;
-	std::cin >> choice_speed;
-	if (choice_speed == 1 || choice_speed == 2)
-	{
-		if (choice_speed == 1) {
-			Speed(GEAR);
-			PINION.speed_in_rpm = (int)std::ceil((float)GEAR.speed_in_rpm * vel_ratio);
-		}
-		else {
-			Speed(PINION);
-			GEAR.speed_in_rpm = (int)std::ceil((float)PINION.speed_in_rpm / vel_ratio);
-		}
-	}
-	else
-	{
-		std::cout << "WRONG INPUT...!";
-		exit(0);
-	}
-	std::cout << std::endl << std::endl;
-
-
-	PINION.no_of_teeth = 20;
-	GEAR.no_of_teeth = (int)(ceil(PINION.no_of_teeth * vel_ratio));
+	get_speed_gear_or_pinion(GEAR, PINION);
 
 //Step:2
 //Identification of weaker part
@@ -216,5 +149,5 @@ int main()
 		GEAR.print_gear_data();
 	}
 
-	system("pause>0");
+//	system("pause>0");
 }

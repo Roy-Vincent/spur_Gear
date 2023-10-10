@@ -1,5 +1,7 @@
 #include<iostream>
+
 #include "Header.h"
+
 float angle;
 void Dia_teeth(gear& x)
 {
