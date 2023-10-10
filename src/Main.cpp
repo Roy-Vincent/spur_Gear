@@ -1,16 +1,11 @@
-#include<iostream>
-#include<cmath>
-#include<stdlib.h>
-
 #include "lib/Header.h"
 
 float power, vel_ratio, module, tangential_tooth_load, velocity_factor, torque, endurance_strength,dynamic_load, wear_load;
 int choice_gear_system;
-gear WEAKER_PART;
 
 int main()
 {	
-	gear GEAR, PINION;
+	gear GEAR, PINION, WEAKER_PART;
 
 	//step:1
 	get_gear_material(GEAR,"GEAR");
