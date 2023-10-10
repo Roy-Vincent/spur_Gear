@@ -1,153 +1,42 @@
 #include<iostream>
 #include<cmath>
 #include<stdlib.h>
+
 #include "lib/Header.h"
+
 float power, vel_ratio, module, tangential_tooth_load, velocity_factor, torque, endurance_strength,dynamic_load, wear_load;
 int choice_gear_system;
+gear WEAKER_PART;
 
 int main()
 {	
 	gear GEAR, PINION;
+
+	//step:1
 	get_gear_material(GEAR,"GEAR");
-	
-	get_gear_material(PINION, "PINION");
-	
+	get_gear_material(PINION, "PINION");	
 	get_power_and_vel_ratio();
-
 	get_dia_gear_or_pinion(GEAR, PINION);
-
 	get_speed_gear_or_pinion(GEAR, PINION);
 
-//Step:2
-//Identification of weaker part
-	std::cout << "Select choice 1 for 14.5 degree full depth involute system :" << std::endl;
-	std::cout << "Select choice 2 for 20 degree full depth involute system   :" << std::endl;
-	std::cout << "Select choice 3 for 20 degree stub teeth system            :" << std::endl;
-	std::cin >> choice_gear_system;
-	if (choice_gear_system > 0 && choice_gear_system < 4)
-	{	
-		Lewis_form_factor_func(choice_gear_system,GEAR,PINION);
-		std::cout << std::endl<<std::endl;
-	}
-	angle_func(choice_gear_system);
+	//step:2
+	WEAKER_PART = Get_weaker_part(GEAR, PINION);
 
+	//step:3
+	Get_module(GEAR, PINION, WEAKER_PART);
 
-	std::cout << "-------------------------------------------------" << std::endl;
-
-	gear WEAKER_PART = weaker_part(GEAR, PINION);
-	std::cout <<"The design is based on "<<' '<<WEAKER_PART.gear_type << std::endl;
-	std::cout << "-------------------------------------------------" << std::endl<< std::endl;
-
-
-//step:3
-//To find module
-	velocity_func(WEAKER_PART);
-	tangential_tooth_load = tangential_tooth_load_func(WEAKER_PART);
-	velocity_factor = velocity_factor_func(WEAKER_PART);
-	torque = (float)(((double)tangential_tooth_load * (double)WEAKER_PART.diameter * pow(10, -3)) / 2);
-	std::cout << "Velocity               :" <<' '<< WEAKER_PART.velocity <<" m/s"<< std::endl;
-	std::cout << "Tangential tooth load  :" <<' '<< tangential_tooth_load <<" N"<< std::endl;
-	std::cout << "Torque                 :" << ' ' << torque <<" Nmm"<< std::endl;
-	std::cout << "Velocity factor        :" <<' '<< velocity_factor << std::endl;
+	//step:4
+	Get_unknown_dimensions(GEAR, PINION, WEAKER_PART);
 	
-	module = module_func(WEAKER_PART);
-	WEAKER_PART.module = (int)module;
-	std::cout << "Module (m)             :" <<' '<< module <<" mm"<< std::endl;
+	//step:5
+	Get_dynamic_load(GEAR, PINION);
 
-	GEAR.module = PINION.module = WEAKER_PART.module;
-	GEAR.velocity = PINION.velocity = WEAKER_PART.velocity;
+	//step:6
+	Get_endurance_strength(WEAKER_PART);
 
+	//step:7
+	Get_wear_load(GEAR, PINION, WEAKER_PART);
 
-//step:4
-//Determination of unknown dimensions
-	float design_stress = 0;
-	do {
-		Actual_dimensions(GEAR, PINION,WEAKER_PART);
-		std::cout << "k                      :" <<' '<< k << std::endl;
-		std::cout << "width(b)               :" <<' '<< b <<" mm"<< std::endl<<std::endl;
+	Print_data(GEAR, PINION, WEAKER_PART);
 
-		design_stress = check_for_stresses(WEAKER_PART);    //Check for stresses
-
-		if (design_stress < WEAKER_PART.design_stress) {
-			std::cout << "Design maximum stress  :" <<' '<< design_stress <<" N"<< std::endl;
-			std::cout << "The design is safe for the current module..!" << std::endl;
-			break;
-
-		}
-		else {
-			std::cout << "The module needs to be increased..!";
-			WEAKER_PART.module += 1;
-			GEAR.module = PINION.module = WEAKER_PART.module;
-		}
-	} while (design_stress > WEAKER_PART.design_stress);
-	std::cout << std::endl << std::endl;
-	
-//step:5
-//Dynamic load
-	dynamic_load = dynamic_load_func(GEAR, PINION);
-	std::cout << "DYNAMIC LOAD       :" <<' '<< dynamic_load <<' '<<"N"<<std::endl<<std::endl;
-
-
-//step:6
-//Endurance strength
-	endurance_strength = endurance_strength_func(WEAKER_PART);
-	std::cout << "ENDURANCE STRENGTH :" <<' '<< endurance_strength << ' ' << "N" << std::endl;
-	
-	if (endurance_strength > dynamic_load) {
-		std::cout << "The gear is safe against dynamic wear" << std::endl << std::endl;
-	}
-	else {
-		std::cout << "The gear will fail" << std::endl << std::endl;
-	}
-
-//step:7
-//Wear load
-	float load_stress_factor,d_gear,Q;
-	if (WEAKER_PART.gear_type == "GEAR") {
-		load_stress_factor = load_stress_factor_func(WEAKER_PART, PINION);
-	}
-	else {
-		load_stress_factor = load_stress_factor_func(WEAKER_PART, GEAR);
-	}
-
-	Q = ratio_factor_func(GEAR, PINION);
-	d_gear = GEAR.diameter;
-	wear_load = wear_load_func(load_stress_factor, d_gear, Q, b);
-
-	std::cout << "WEAR LOAD          :" <<' '<< wear_load <<' '<<"N"<<std::endl;
-	
-	if (wear_load > dynamic_load) {
-		std::cout << "The gear is safe against wear" << std::endl << std::endl;
-	}
-	else {
-		std::cout << "The gear is subjected to rapid wear and is needed to be surface hardened to a higher BHN" << std::endl << std::endl;
-	}
-
-
-
-
-
-//print data:
-	std::cout << std::endl << std::endl;
-	if (WEAKER_PART.gear_type == GEAR.gear_type)
-	{
-		std::cout << "Dimensions of the weaker part GEAR" << std::endl;
-		std::cout << "-------------------------------------------------" << std::endl;
-		GEAR.print_gear_data();
-
-		std::cout << "Dimensions of PINION" << std::endl;
-		std::cout << "-------------------------------------------------" << std::endl;
-		PINION.print_gear_data();
-	}
-	else {
-		std::cout << "Dimensions of the weaker part PINION" << std::endl;
-		std::cout << "-------------------------------------------------" <<std::endl;
-		PINION.print_gear_data();
-
-		std::cout << "Dimensions of GEAR" << std::endl;
-		std::cout << "-------------------------------------------------" << std::endl;
-		GEAR.print_gear_data();
-	}
-
-//	system("pause>0");
 }

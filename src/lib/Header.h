@@ -102,3 +102,12 @@ void get_gear_material(gear& GEAR, std::string GEAR_str);
 void get_power_and_vel_ratio();
 void get_dia_gear_or_pinion(gear& GEAR, gear& PINION);
 void get_speed_gear_or_pinion(gear& GEAR, gear& PINION);
+
+//Get Calculations
+gear Get_weaker_part(gear& GEAR, gear& PINION);
+void Get_module(gear& GEAR, gear& PINION, gear& WEAKER_PART);
+void Get_unknown_dimensions(gear& GEAR, gear& PINION, gear& WEAKER_PART);
+void Get_dynamic_load(gear& GEAR, gear& PINION);
+void Get_endurance_strength(gear& WEAKER_PART);
+void Get_wear_load(gear& GEAR, gear& PINION, gear& WEAKER_PART);
+void Print_data(gear& GEAR, gear& PINION, gear& WEAKER_PART);
