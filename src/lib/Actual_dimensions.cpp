@@ -1,6 +1,9 @@
-#include "Header.h"
 #include<cmath>
+
+#include "Header.h"
+
 float b;
+
 void Actual_dimensions(gear& gear1, gear& pinion1,gear& weaker_gear)
 {
 	gear1.no_of_teeth = (int)(ceil(gear1.diameter / gear1.module));

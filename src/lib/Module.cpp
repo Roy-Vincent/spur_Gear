@@ -1,14 +1,16 @@
 #include<iostream>
 #include<cmath>
+
 #include "Header.h"
+
 float k = 10;
 
-void velocity_func(gear& weaker_gear)						//velocity function
+void velocity_func(gear& weaker_gear)					//velocity function
 {
 	weaker_gear.velocity = (float)((3.14 * weaker_gear.diameter * weaker_gear.speed_in_rpm*pow(10,-3)) / 60);
 }
 
-float tangential_tooth_load_func(gear weaker_gear)		    //torque function
+float tangential_tooth_load_func(gear weaker_gear)		    	//torque function
 {	
 	float tangential_tooth_load;
 	tangential_tooth_load = (1000*power*1/weaker_gear.velocity);
@@ -37,7 +39,7 @@ float velocity_factor_func(gear weaker_gear)				//velocity factor function
 	return vel_factor;
 }
 
-float module_func(gear& weaker_gear)                                //module function
+float module_func(gear& weaker_gear)                                	//module function
 {
 	float m, tangential_tooth_load, vel_factor, Y, design_stress;
 	tangential_tooth_load = tangential_tooth_load_func(weaker_gear);

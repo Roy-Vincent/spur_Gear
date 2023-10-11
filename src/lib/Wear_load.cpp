@@ -1,5 +1,6 @@
 #include<iostream>
 #include<cmath>
+
 #include "Header.h"
 
 float load_stress_factor_func(gear weaker_gear, gear gear1)

@@ -1,6 +1,7 @@
 #pragma once
 #include<iostream>
 #include<string>
+
 extern float power, vel_ratio;		 //power and velocity ratio
 								    
 extern int choice_gear_system; 
@@ -94,3 +95,19 @@ float endurance_strength_func(gear weaker_gear);
 float load_stress_factor_func(gear weaker_gear, gear gear1);
 float ratio_factor_func(gear gear1, gear pinion1);
 float wear_load_func(float a, float b, float c, float d);
+
+
+//Get functions
+void get_gear_material(gear& GEAR, std::string GEAR_str);
+void get_power_and_vel_ratio();
+void get_dia_gear_or_pinion(gear& GEAR, gear& PINION);
+void get_speed_gear_or_pinion(gear& GEAR, gear& PINION);
+
+//Get Calculations
+gear Get_weaker_part(gear& GEAR, gear& PINION);
+void Get_module(gear& GEAR, gear& PINION, gear& WEAKER_PART);
+void Get_unknown_dimensions(gear& GEAR, gear& PINION, gear& WEAKER_PART);
+void Get_dynamic_load(gear& GEAR, gear& PINION);
+void Get_endurance_strength(gear& WEAKER_PART);
+void Get_wear_load(gear& GEAR, gear& PINION, gear& WEAKER_PART);
+void Print_data(gear& GEAR, gear& PINION, gear& WEAKER_PART);

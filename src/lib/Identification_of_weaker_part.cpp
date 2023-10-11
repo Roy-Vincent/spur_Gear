@@ -1,5 +1,7 @@
 #include<iostream>
+
 #include "Header.h"
+
 void Lewis_form_factor_func(int x,gear& gear1, gear& pinion1)
 {	
 	switch (x)
@@ -11,14 +13,14 @@ void Lewis_form_factor_func(int x,gear& gear1, gear& pinion1)
 		pinion1.form_factor = (float)(pinion1.lewis_form_factor * 3.14);
 		break;
 	
-	case 2:                                 // 20 degree full depth involute system
+	case 2:                                 				// 20 degree full depth involute system
 		gear1.lewis_form_factor = (float)(0.154 - (0.912 / gear1.no_of_teeth));
 		pinion1.lewis_form_factor = (float)(0.154 - (0.912 / pinion1.no_of_teeth));
 		gear1.form_factor = (float)(gear1.lewis_form_factor * 3.14);
 		pinion1.form_factor = (float)(pinion1.lewis_form_factor * 3.14);
 		break;
 	
-	case 3:                                 // 20 degree stub teeth system
+	case 3:                                 				// 20 degree stub teeth system
 		gear1.lewis_form_factor = (float)(0.175 - (0.95 / gear1.no_of_teeth));
 		pinion1.lewis_form_factor = (float)(0.175 - (0.95 / pinion1.no_of_teeth));
 		gear1.form_factor = (float)(gear1.lewis_form_factor * 3.14);
