@@ -1,4 +1,4 @@
-# Spur_gear_application
+# Spur_Gear
 
 This is a C++ console application that automates the design procedure for a pair of spur gear. 
 This is an initial version of the application and it is only integrated with 4 materials and is not well optimised. 
