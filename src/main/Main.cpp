@@ -1,4 +1,4 @@
-#include "lib/Header.h"
+#include "../lib/Header.h"
 
 float power, vel_ratio, module, tangential_tooth_load, velocity_factor, torque, endurance_strength,dynamic_load, wear_load;
 int choice_gear_system;

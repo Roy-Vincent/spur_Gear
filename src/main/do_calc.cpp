@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cmath>
 
-#include "lib/Header.h"
+#include "../lib/Header.h"
 
 gear Get_weaker_part(gear& GEAR, gear& PINION){
     //Identification of weaker part
